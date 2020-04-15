@@ -37,7 +37,7 @@
               <li role="separator" class="divider"></li>
               <li> <%= link_to "Logout", destroy_user_session_path, method: :delete %> </li>
               <li class="dropdown">
-                <a  href="#" class="dropdown-toggle" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><%=current_user.email%></a>
+                <a  href="#" class="dropdown-toggle" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><%= current_user.username %></a>
                 <ul class="dropdown-menu">
                 </ul>
               </li>
@@ -49,7 +49,24 @@
         </div>
       </div>
     </nav>
-
-    <%= yield %>
+    <div class="fluid-container">
+      <div class="row">
+        <div class="col-sm-2">
+          
+          <% if user_signed_in? %>
+            <h5>Chatrooms</h5>
+            <ul>
+              <% current_user.chatrooms.each do |chatroom|%>
+                <li> <%= link_to chatroom.name, "#" %> </li>
+              <% end %>
+            </ul>
+          <% end %>
+          
+        </div>
+        <div class="col-sm-10">
+          <%= yield %>        
+        </div>
+      </div>
+    </div>
   </body>
 </html>
