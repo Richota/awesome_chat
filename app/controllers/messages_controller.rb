@@ -1,4 +1,6 @@
 class MessagesController < ApplicationController
+    protect_from_forgery prepend: true, with: :exception
+    skip_before_action :verify_authenticity_token
     before_action :authenticate_user!
     before_action :set_chatroom
 
@@ -6,7 +8,7 @@ class MessagesController < ApplicationController
         message = @chatroom.messages.new(message_params)
         message.user = current_user        
         message.save
-        redirect_to @chatroom
+
     end
 
     private
